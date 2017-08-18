@@ -67,6 +67,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let scene = SCNScene()
         // Set the scene to the view
         self.sceneView.scene = scene
+        
+        // remove objects if they fall too far away
+        let bottomPlane = SCNBox(width: 1000, height: 0.5, length: 1000, chamferRadius: 0)
+        let bottomMaterial = SCNMaterial()
+        bottomMaterial.diffuse.contents = UIColor(white: 1.0, alpha: 0.0)
+        bottomPlane.materials = [bottomMaterial]
+        let bottomNode = SCNNode(geometry: bottomPlane)
+        bottomNode.position = SCNVector3Make(0, -10, 0)
+        bottomNode.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.kinematic, shape: nil)
+        bottomNode.physicsBody?.categoryBitMask = CollisionCategory.bottom.rawValue
+        bottomNode.physicsBody?.contactTestBitMask = CollisionCategory.cube.rawValue
+        self.sceneView.scene.rootNode.addChildNode(bottomNode)
+        
+        self.sceneView.scene.physicsWorld.contactDelegate = self
+        //self.sceneView.scene.physicsWorld.contactDelegate = self as! SCNPhysicsContactDelegate
+        
     }
     
     func setupSession() {
@@ -114,6 +130,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.position = SCNVector3Make(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y.advanced(by: insertionYOffset),hitResult.worldTransform.columns.3.z)
         self.sceneView.scene.rootNode.addChildNode(node)
         self.boxes.append(node)
+    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact){
+        // geometry hits the bottom, remove it
+        
+        guard let physicsBodyA = contact.nodeA.physicsBody, let physicsBodyB = contact.nodeB.physicsBody else{
+            return
+        }
+        
+        let categoryA = CollisionCategory.init(rawValue: physicsBodyA.categoryBitMask)
+        let categoryB = CollisionCategory.init(rawValue: physicsBodyB.categoryBitMask)
+        
+        let contactMask: CollisionCategory? = [categoryA, categoryB]
+        
+        if contactMask == [CollisionCategory.bottom, CollisionCategory.cube]{
+            if categoryA == CollisionCategory.bottom{
+                contact.nodeB.removeFromParentNode()
+            } else{
+                contact.nodeB.removeFromParentNode()
+            }
+        }
     }
     
     // MARK: - ARSCNViewDelegate
