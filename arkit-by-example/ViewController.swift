@@ -113,24 +113,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         }
         
         let hitResult = result.first
-        self.insertGeometry(hitResult: hitResult!)
+        self.insertGeometry(hitResult: hitResult!, insertionYOffset: 0.3, color: UIColor(red:1.00, green:0.81, blue:0.20, alpha:1.0))
+        self.insertGeometry(hitResult: hitResult!, insertionYOffset: 0.4, color: UIColor(red:0.86, green:0.04, blue:0.07, alpha:1.0))
+        self.insertGeometry(hitResult: hitResult!, insertionYOffset: 0.5, color: UIColor.black)
     }
     
-    func insertGeometry(hitResult: ARHitTestResult){
+    func insertGeometry(hitResult: ARHitTestResult, insertionYOffset: Float, color: UIColor){
         print("inserting cube")
-        let dimension: CGFloat = 0.1
-        let cube = SCNBox(width: dimension, height: dimension, length: dimension, chamferRadius: 0)
+        let dimension: CGFloat = 0.05
+        let cube = SCNBox(width: dimension*2, height: dimension, length: dimension, chamferRadius: 0)
+        let cubeMaterial = SCNMaterial()
+        cubeMaterial.diffuse.contents = color
+        cube.materials = [cubeMaterial]
         let node = SCNNode(geometry: cube)
         
+        let bottomPlane = SCNBox(width: 1000, height: 0.5, length: 1000, chamferRadius: 0)
+        let bottomMaterial = SCNMaterial()
+        bottomMaterial.diffuse.contents = color
+        bottomPlane.materials = [bottomMaterial]
+
         node.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.dynamic, shape: nil)
         node.physicsBody?.mass = 2.0
         node.physicsBody?.categoryBitMask = CollisionCategory.cube.rawValue
         
-        let insertionYOffset: Float = 0.5
         node.position = SCNVector3Make(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y.advanced(by: insertionYOffset),hitResult.worldTransform.columns.3.z)
         self.sceneView.scene.rootNode.addChildNode(node)
         self.boxes.append(node)
     }
+    
+
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact){
         // geometry hits the bottom, remove it
