@@ -9,14 +9,19 @@
 import UIKit
 import ARKit
 
-class Plane: SCNNode {
+class Plane: SCNBox {
     
     var anchor: ARPlaneAnchor
-    var planeGeometry: SCNPlane
+    var planeGeometry: SCNBox
     
-    init(anchor: ARPlaneAnchor) {
+    init(anchor: ARPlaneAnchor, isHidden hidden: Bool) {
         self.anchor = anchor
-        self.planeGeometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
+        let width = CGFloat(anchor.extent.x)
+        let length = CGFloat(anchor.extent.z)
+        
+        let planeHeight: CGFloat = 0.01
+        
+        self.planeGeometry = SCNBox(width: width, height: planeHeight, length: length, chamferRadius: 0.0)
         
         super.init()
         
@@ -25,17 +30,29 @@ class Plane: SCNNode {
         let material = SCNMaterial()
         let image = UIImage(named: "tron_grid")
         material.diffuse.contents = image
-        self.planeGeometry.materials = [material]
+
+        let transparentMaterial = SCNMaterial()
+        transparentMaterial.diffuse.contents = UIColor(white: 1, alpha: 0.1)
+        
+        if hidden {
+            self.planeGeometry.materials = [transparentMaterial, transparentMaterial, transparentMaterial, transparentMaterial, transparentMaterial, transparentMaterial]
+        } else{
+            self.planeGeometry.materials = [transparentMaterial, transparentMaterial, transparentMaterial, transparentMaterial, material, transparentMaterial]
+        }
         
         let planeNode = SCNNode(geometry: planeGeometry)
         planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
         
         // Planes in SceneKit are vertical by default so we need to rotate 90degrees to match
         // planes in ARKit
-        planeNode.transform = SCNMatrix4MakeRotation(-.pi / 2.0, 1.0, 0.0, 0.0)
+        //planeNode.transform = SCNMatrix4MakeRotation(-.pi / 2.0, 1.0, 0.0, 0.0)
+        planeNode.position = SCNVector3Make(0, Float(-planeHeight / 2), 0)
+        
+        planeNode.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.kinematic, shape: SCNPhysicsShape(geometry: self.planeGeometry, options: nil))
         
         self.setTextureScale()
         self.addChildNode(planeNode)
+
     }
     
     required init?(coder aDecoder: NSCoder) {
