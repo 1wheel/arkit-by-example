@@ -17,7 +17,7 @@ struct CollisionCategory: OptionSet{
     static let cube = CollisionCategory(rawValue: 1 << 1)
 }
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate, SCNPhysicsContactDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     
