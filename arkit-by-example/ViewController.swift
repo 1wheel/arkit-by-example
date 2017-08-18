@@ -50,8 +50,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Turn on debug options to show the world origin and also render all
         // of the feature points ARKit is tracking
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
-        
+        // self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+
         // Container to hold all of the 3D geometry
         let scene = SCNScene()
         // Set the scene to the view
@@ -60,7 +61,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func setupSession() {
         // Create a session configuration
-        let configuration = ARWorldTrackingSessionConfiguration()
+        let configuration = ARWorldTrackingConfiguration()
         
         configuration.planeDetection = .horizontal
         
@@ -72,10 +73,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if !anchor.isKind(of: ARPlaneAnchor.classForCoder()) {
+            print("found non plane anchor")
             return
         }
         
         // When a new plane is detected we create a new SceneKit plane to visualize it in 3D
+        print("found plane")
         let plane = Plane(anchor: anchor as! ARPlaneAnchor)
         planes[anchor.identifier] = plane
         node.addChildNode(plane)

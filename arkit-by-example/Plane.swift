@@ -23,7 +23,7 @@ class Plane: SCNNode {
         // Instead of just visualizing the grid as a gray plane, we will render
         // it in some Tron style colours.
         let material = SCNMaterial()
-        let image = UIImage(named: "tron_grid.png")
+        let image = UIImage(named: "tron_grid")
         material.diffuse.contents = image
         self.planeGeometry.materials = [material]
         

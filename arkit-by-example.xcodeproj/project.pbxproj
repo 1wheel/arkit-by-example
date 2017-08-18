@@ -12,7 +12,6 @@
 		33543FB71F0CD7520072DD33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33543FB51F0CD7520072DD33 /* Main.storyboard */; };
 		33543FB91F0CD7520072DD33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33543FB81F0CD7520072DD33 /* Assets.xcassets */; };
 		33543FBC1F0CD7520072DD33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33543FBA1F0CD7520072DD33 /* LaunchScreen.storyboard */; };
-		33543FC41F0CD7C90072DD33 /* tron_grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 33543FC31F0CD7C30072DD33 /* tron_grid.png */; };
 		33543FC61F0CDA060072DD33 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33543FC51F0CDA060072DD33 /* Plane.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 		33543FB81F0CD7520072DD33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33543FBB1F0CD7520072DD33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		33543FBD1F0CD7520072DD33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		33543FC31F0CD7C30072DD33 /* tron_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tron_grid.png; sourceTree = "<group>"; };
 		33543FC51F0CDA060072DD33 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,7 +59,6 @@
 				33543FAF1F0CD7520072DD33 /* AppDelegate.swift */,
 				33543FB31F0CD7520072DD33 /* ViewController.swift */,
 				33543FC51F0CDA060072DD33 /* Plane.swift */,
-				33543FC31F0CD7C30072DD33 /* tron_grid.png */,
 				33543FB51F0CD7520072DD33 /* Main.storyboard */,
 				33543FB81F0CD7520072DD33 /* Assets.xcassets */,
 				33543FBA1F0CD7520072DD33 /* LaunchScreen.storyboard */,
@@ -128,7 +125,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33543FC41F0CD7C90072DD33 /* tron_grid.png in Resources */,
 				33543FBC1F0CD7520072DD33 /* LaunchScreen.storyboard in Resources */,
 				33543FB91F0CD7520072DD33 /* Assets.xcassets in Resources */,
 				33543FB71F0CD7520072DD33 /* Main.storyboard in Resources */,
@@ -277,10 +273,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = UJNMHBPAPG;
+				DEVELOPMENT_TEAM = VHNB7HUZQK;
 				INFOPLIST_FILE = "arkit-by-example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruanestudios.arkit-by-example";
+				PRODUCT_BUNDLE_IDENTIFIER = "nyt.arkit-example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -291,10 +287,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = UJNMHBPAPG;
+				DEVELOPMENT_TEAM = VHNB7HUZQK;
 				INFOPLIST_FILE = "arkit-by-example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruanestudios.arkit-by-example";
+				PRODUCT_BUNDLE_IDENTIFIER = "nyt.arkit-example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
